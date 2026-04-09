@@ -1,0 +1,7 @@
+(* advanced test case 2 : Record Fix *)
+
+let x := {i := 1, b := true} in(
+x.b := {i := 1, b:= true}; write x.b.i
+)
+
+(* Output : prints out "1\n" *)

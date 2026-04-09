@@ -1,0 +1,8 @@
+let n := 9168 in
+let m := 1337 in
+while (not (n = 0)) do (
+  let r := m - (m / n) * n in
+  m := n;
+  n := r
+);
+write m

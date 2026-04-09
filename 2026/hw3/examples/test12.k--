@@ -1,0 +1,11 @@
+(* Private test case 12 : Comparing different type *)
+
+let x := 1 in
+let y := true in
+(
+    if x = y then
+        write 1
+    else 
+        write 0
+)
+

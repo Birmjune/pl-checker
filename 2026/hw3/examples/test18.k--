@@ -1,0 +1,8 @@
+if 3 < 2 then
+  0
+else (
+  if (false = 3) then
+    x
+  else
+    write 25
+)

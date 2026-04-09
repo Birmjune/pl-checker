@@ -1,0 +1,7 @@
+(* Private test case 11 : Unbound error *)
+
+let x := 1 in
+(
+     write y
+)
+

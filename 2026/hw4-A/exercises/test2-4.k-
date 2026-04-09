@@ -1,0 +1,70 @@
+(
+let tree := makeTree(1, makeLtree(2, makeRtree(4, leaf(5))), leaf(3)) in
+(
+if isLtree(tree)
+then write 1
+else write 0
+;
+if isRtree(tree)
+then write 1
+else write 0
+;
+if isLRtree(tree)
+then write 1
+else write 0
+;
+if isLeaf(tree)
+then write 1
+else write 0
+;
+write nodeVal(tree)
+;
+if isLtree(lTree(tree))
+then write 1
+else write 0
+;
+if isRtree(lTree(tree))
+then write 1
+else write 0
+;
+if isLRtree(lTree(tree))
+then write 1
+else write 0
+;
+if isLeaf(lTree(tree))
+then write 1
+else write 0
+;
+write nodeVal(lTree(tree))
+;
+if isLtree(rTree(tree))
+then write 1
+else write 0
+;
+if isRtree(rTree(tree))
+then write 1
+else write 0
+;
+if isLRtree(rTree(tree))
+then write 1
+else write 0
+;
+if isLeaf(rTree(tree))
+then write 1
+else write 0
+;
+write nodeVal(rTree(tree))
+
+
+)
+)
+
+(*
+    1
+   / \
+  2   3
+ /
+4   
+ \
+  5
+*)

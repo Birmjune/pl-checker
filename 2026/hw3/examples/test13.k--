@@ -1,0 +1,9 @@
+(* Private test case 13 : Arithmetic operator should execute expressions in nice order *)
+
+let x := 1 in
+(
+    (write x) + (x := x + 1);
+    (write x) - (x := x + 1);
+    (write x) * (x := x + 1);
+    (write x) / (x := x + 1)
+)

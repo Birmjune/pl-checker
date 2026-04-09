@@ -1,0 +1,9 @@
+let n := 10 in
+let prod := 1 in
+let cond := true in
+while (cond := (0 < n)) do (
+  prod := prod * n;
+  n := n - 1
+);
+if (false = 0) then cond := false else
+write prod

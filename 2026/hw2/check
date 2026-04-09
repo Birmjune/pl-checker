@@ -1,0 +1,49 @@
+#!/bin/bash
+HWNUM=2
+EXERCISES=(1 2 3 4 5)
+LIB_PATH="../lib/"
+LIBSRC="testlib.ml"
+
+cleanup () {
+    rm -f ./*.cmi ./*.cmo ./*.out
+}
+
+check () {
+    local ex="$1"
+    local mode="$2"
+    echo "# Exercise ${ex}"
+    ocamlc -I "${LIB_PATH}" -o "ex${ex}.out" "${LIB_PATH}${LIBSRC}" "ex${ex}.ml" "test${ex}.ml"
+    local status=$?
+    if [[ ${status} -eq 0 ]]; then
+        ./"ex${ex}.out" ${mode}
+        status=$?
+    fi
+    cleanup
+    return ${status}
+}
+
+if [[ $# -eq 0 ]]
+then
+    echo "== Homework ${HWNUM} =="
+    for EX in "${EXERCISES[@]}"; do
+        check "${EX}" summary
+    done
+elif [[ $# -eq 1 ]]
+then
+    VALID=0
+    for EX in "${EXERCISES[@]}"; do
+        if [[ "$1" -eq "${EX}" ]]
+        then
+            VALID=1
+            break
+        fi
+    done
+    if [[ ${VALID} -eq 1 ]]
+    then
+        check "$1"
+    else
+        echo "Error: Exercise ${1} not found"
+    fi
+else
+    echo "Error: Too many arguments"
+fi
