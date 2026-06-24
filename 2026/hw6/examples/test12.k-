@@ -1,0 +1,1 @@
+let x := false in if x then (write 1) else (write 0)

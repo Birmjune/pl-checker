@@ -1,0 +1,3 @@
+(* 4-1 test06: 6. RECORD + FIELD | expect Num 5 *)
+write (( {fst := true, snd := 5 } ).snd
+)

@@ -1,0 +1,8 @@
+(* 4-1 test05: 5. WHILE + LETV | expect Num 120 *)
+write (let x := 1 in
+let fac := 1 in
+while (x < 6) do (
+   fac := fac * x;
+   x := x + 1
+); fac
+)

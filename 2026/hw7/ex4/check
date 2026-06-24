@@ -18,24 +18,20 @@ echo "-- Compile sources --"
 make
 echo ""
 
-echo "-- Testing Lowfat M --"
-for FULLNAME in $(find "$TESTDIR"/*.m | sort -V)
-do
-    TEST="$(basename -- "$FULLNAME" .m)"
-    FILE="$TESTDIR/$TEST"
+run_one() {
+    local FULLNAME="$1"
+    local TEST="$(basename -- "$FULLNAME" .m)"
+    local FILE="$TESTDIR/$TEST"
 
     printf "${BOLD}Testcase: %s$N " "$TEST"
 
     COMM="./run -resonly $FILE.m > $FILE.out 2> $FILE.err"
-    if [ -f "$FILE.in" ]
-    then
+    if [ -f "$FILE.in" ]; then
         COMM="$COMM < $FILE.in"
     fi
 
-    if eval "$COMM"
-    then
-        if eval "diff $FILE.ans $FILE.out > /dev/null"
-        then
+    if eval "$COMM"; then
+        if diff "$FILE.ans" "$FILE.out" > /dev/null; then
             echo "$CORRECT"
         else
             echo "$WRONG"
@@ -49,4 +45,9 @@ do
         echo "$WRONG"
         cat "$FILE.err"
     fi
+}
+
+echo "-- Testing Lowfat M --"
+for FULLNAME in $(find "$TESTDIR"/*.m | sort -V); do
+    run_one "$FULLNAME"
 done

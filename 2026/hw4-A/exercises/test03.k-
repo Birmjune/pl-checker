@@ -1,0 +1,8 @@
+(* 4-2 test03: 3. isLtree *)
+let tr := makeLtree (89, (leaf (83))) in
+if isLRtree (tr) then write (5)
+else if isLeaf (tr) then write (7)
+else if isRtree (tr) then write (8)
+else if isLtree (tr) then write (6)
+else write (9)
+

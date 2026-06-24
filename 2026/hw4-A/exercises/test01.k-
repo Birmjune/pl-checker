@@ -1,0 +1,10 @@
+(* 4-2 test01: 1. lTree + rTree + nodeVal *)
+let tr1 := leaf (2) in
+let tr2 := makeLtree (3, (leaf (20))) in
+let tr3 := makeRtree (5, (leaf (31))) in
+let tr4 := makeTree (7, leaf (44), leaf (56)) in (
+write (nodeVal (tr1) + nodeVal (tr2) + nodeVal (tr3) + nodeVal (tr4));
+write (nodeVal (lTree (tr2)) + nodeVal (lTree (tr4)));
+write (nodeVal (rTree (tr3)) + nodeVal (rTree (tr4)))
+)
+

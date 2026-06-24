@@ -1,21 +1,10 @@
-(* test case 17 : recursive record *)
-let r := {r := unit, value := 123} in
-let p := {r := unit, value := 234} in
-let q := {r := p, value := 345} in
-( r.r := r;
-  p.r := q;
-  q.r := p;
-  write r.r.r.r.r.r.r.r.r.r.r.r.r.r.r.r.value;
-  write p.r.r.r.r.r.r.r.r.r.r.r.r.r.r.r.value;
-  write q.r.r.r.r.r.r.r.r.r.r.r.r.r.r.r.value;
-  write p.r.r.r.r.r.r.r.r.r.r.r.r.r.r.value;
-  write q.r.r.r.r.r.r.r.r.r.r.r.r.r.r.value
-)
+(* 4-1 test17: 17. Arguments in CALLR | expect Num 12 *)
+write (let x := 1 in
+let y := {a := 1} in
+let proc f (x, y, z) =
+  (x := x + (y := y + 1) + (z := z + 1))
+in
+f <x, y.a, x>;
+x * y.a
 
-(* output :
-123
-345
-234
-234
-345
-*)
+)

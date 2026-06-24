@@ -1,0 +1,12 @@
+let sum := 0 in
+let k := 0 in
+let proc f (x) = (
+   if (x < k) then (
+     f(x+1);
+     x := 2 * x;
+     sum := sum + x
+   ) else 0
+) in
+read k;
+f(0);
+(write sum)

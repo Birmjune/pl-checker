@@ -1,0 +1,6 @@
+(fn f => f (f 4))
+  (rec asum x =>
+    (ifp x then (asum (x  + (-2) ) + x)
+    else (ifp ( x + 1 ) then ( raise asum ( x + 5 ) ) else 0)
+    ) handle a ( a + asum ( x + 3 ) )
+  )

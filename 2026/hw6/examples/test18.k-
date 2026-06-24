@@ -1,0 +1,5 @@
+let a := 0 in
+let proc f (x) = x + 1 in
+let x := 2 in
+read a;
+write (a * (x + x))

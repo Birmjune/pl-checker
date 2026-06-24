@@ -47,6 +47,8 @@ do
     if [ "${DIFF_RESULT}" == 0 ]
     then
         PASS=$((PASS + 1))
+    else
+        diff "${TFILE}.ans" "${TFILE}.out" | sed 's/^/    /'
     fi
 done
 

@@ -1,0 +1,7 @@
+(* 4-1 test07: 7. LETV + ASSIGNF | expect Num 4 *)
+write (
+let x := {fst := true, snd := 3 } in
+x.fst := 4;
+x.fst
+
+)

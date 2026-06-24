@@ -21,4 +21,5 @@ type closure
 type value = N of int | P of value * value | C of closure
 
 val run : nexp -> value
+val run_callcc : nexp -> value
 val print : nexp -> unit

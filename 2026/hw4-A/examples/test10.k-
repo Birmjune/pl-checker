@@ -1,9 +1,10 @@
-(* Public test case 10 : Record *)
+(* 4-1 test10: 10. LETF + CALLV + CALLR | expect Num 5 *)
+write (
+let proc f (x) = (x := 3) in
+let proc g (x) = (x := 3) in
+let x := 1 in
+let y := 2 in
+f <x>; g (y);
+x + y
 
-let x := {i := 10, b := true} in
-if x.b then 
-  write x.i
-else
-  write 0
-
-(* Output : prints out "10\n" *)
+)

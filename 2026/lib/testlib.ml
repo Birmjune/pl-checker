@@ -45,11 +45,24 @@ let summary_exercise tcs runner =
   let passed = List.length (List.filter runner tcs) in
   printf "%s Passed %d/%d Cases\n" (if passed = total then correct_symbol else wrong_symbol) passed total
 
+(* like summary_exercise, but also prints the reason for each failed case *)
+let summary_exercise_v tcs runner string_of_tc =
+  let total = List.length tcs in
+  let passed = ref 0 in
+  List.iteri
+    (fun i tc ->
+      if runner tc then incr passed
+      else
+        let (tc_s, ans_s, out_s) = string_of_tc tc in
+        printf "%s Test %d: %s\n  answer: %s, output: %s\n%!" wrong_symbol (i + 1) tc_s ans_s out_s)
+    tcs;
+  printf "%s Passed %d/%d Cases\n" (if !passed = total then correct_symbol else wrong_symbol) !passed total
+
 let wrapper a1 a2 a3 =
   if Array.length Sys.argv = 1 then
     test_exercise a1 a2 a3
   else
-    summary_exercise a1 a2
+    summary_exercise_v a1 a2 a3
 
 let wrapper2 a1 a2 a3 a4 =
   if Array.length Sys.argv = 1 then

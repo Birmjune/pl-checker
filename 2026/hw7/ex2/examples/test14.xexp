@@ -1,0 +1,12 @@
+(
+    (rec k f =>
+      (fn x => (
+        (f x) handle a (
+            ((k (fn y => ( (f y) handle b (a + b)) )) (a + (-3)))
+            handle c (raise ( x + c ))
+          )
+        )
+      )
+    )
+    (fn x => (ifp x then (raise ( x + (-1) ) ) else 0) ) 11
+  ) handle a ( a handle a a )

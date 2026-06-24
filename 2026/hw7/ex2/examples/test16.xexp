@@ -1,0 +1,11 @@
+(fn x =>
+    (fn y =>
+      (fn x =>
+        (ifp y then
+        (fn x => raise (x + y)) 55
+        else
+        45
+        ) handle z (x + y + z)
+      ) 35
+    ) 25
+  ) 15

@@ -1,0 +1,7 @@
+let val g = fn x => (x = true) in
+let rec f = fn x => (
+  if (x = 1) then (g (x=1)) else (f (x - 1))
+  ) in
+  f 4
+end
+end

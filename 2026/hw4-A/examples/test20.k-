@@ -1,10 +1,14 @@
-(* test case 20 : function callv invalid argument *)
-
-let proc f(x, y) =
-  x + y
+(* 4-1 test20: 20. complex scope | expect Num 175 *)
+write (let x := 1 in
+let y := 5 in
+let proc f (z) =
+  if z then (x := x + 1) else (y := y - 2)
 in
-f (1)
+let x := 10 in
+let y := 50 in
+let proc g (z) =
+  if z then (x := x + 5) else (y := y - 10)
+in
+x + y + g (true) + g (false) + x + y + f (true) + f (false)
 
-(* output :
-Error : InvalidArg
-*)
+)

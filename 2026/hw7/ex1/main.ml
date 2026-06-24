@@ -39,6 +39,7 @@ let main () =
   let print_cps = ref false in
   let check_val = ref false in
   let check_conv = ref false in
+  let check_cc = ref None in
   let src = ref "" in
   let _ =
     Arg.parse
@@ -46,6 +47,7 @@ let main () =
       ("-pcps", Arg.Set print_cps, "Print CPS-converted  program");
       ("-checkval", Arg.Set check_val, "value check-only with exit code");
       ("-checkcps", Arg.Set check_conv, "cps check-only with exit code");
+      ("-callcc", Arg.Int (fun n -> check_cc := Some n), "callcc check: expect N as result of run_callcc(App(cps,id))");
       ]
       (fun x -> src := x)
       "Usage: ./run [<options>] <M0 file>"
@@ -73,6 +75,14 @@ let main () =
   if !check_conv then (
     exit (if check_cps cps_pgm then 0 else 1)
   );
+
+  (match !check_cc with
+   | Some expected ->
+       let result = M0.run_callcc (M0.App (cps_pgm, M0.Fn ("x", M0.Var "x"))) in
+       (match result with
+        | M0.N n -> exit (if n = expected then 0 else 1)
+        | _ -> exit 1)
+   | None -> ());
 
   let orig_result = M0.run pgm in
   let cps_result = M0.run (M0.App (cps_pgm, M0.Fn ("v", M0.Var "v"))) in

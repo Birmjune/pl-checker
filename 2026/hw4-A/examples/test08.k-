@@ -1,0 +1,6 @@
+(* 4-1 test08: 8. LETF + CALLV | expect Num 1 *)
+write (
+let proc f (x, y, z) = (x + y) / z in
+f (2, 3, 5)
+
+)

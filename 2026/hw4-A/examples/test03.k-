@@ -1,0 +1,4 @@
+(* 4-1 test03: 3. TypeError in arithmetic *)
+
+true + 2
+

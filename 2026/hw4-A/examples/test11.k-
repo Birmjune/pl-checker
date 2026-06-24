@@ -1,12 +1,12 @@
-(* test case 11 : while + call by ref *)
+(* 4-1 test11: 11. EQUAL + Unbound in false branch | expect Num 7 *)
+write (
+if 3 < 2 then
+  x
+else if (false = 3) then
+  y
+else if ({i := 1} = 0) then
+  z
+else
+  7
 
-let proc add (sum, x) =
-  sum := sum + x
-in
-let x := 0 in
-let sum := 0 in
-( while (x < 100) do (add<sum, x>; x := x + 1);
-  write sum
 )
-
-(* output : 4950 *)

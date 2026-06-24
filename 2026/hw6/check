@@ -1,0 +1,63 @@
+#!/bin/bash
+# HW6 checker (SM5). 6-1: translator.ml (file-based). 6-2: gc.ml (library harness).
+# Build: dune (the provided parser is Menhir).
+cd "$(dirname "$0")" || exit 1
+
+SM5=./_build/default/bin/main.exe
+GC=./_build/default/test/gc_test.exe
+TIMEOUT=10
+WRONG="$(tput setaf 1)✗$(tput sgr0)"
+CORRECT="$(tput setaf 2)✓$(tput sgr0)"
+
+# 6-1: translate each examples/test*.k- to SM5, run, compare stdout to .ans.
+# The K- interpreter result is the ground truth; .ans holds the sample's expected output.
+check_q1 () {
+    echo "# Exercise 1 (SM5 translator)"
+    local pass=0 total=0
+    for kf in examples/test*.k-; do
+        [ -e "$kf" ] || continue
+        total=$((total + 1))
+        local base="${kf%.k-}"
+        local out="${base}.out"
+        if [ -f "${base}.in" ]; then
+            timeout "$TIMEOUT" "$SM5" "$kf" < "${base}.in" > "$out" 2>/dev/null
+        else
+            timeout "$TIMEOUT" "$SM5" "$kf" > "$out" 2>/dev/null
+        fi
+        printf "Test %s..." "$(basename "$base")"
+        # trailing-newline-robust comparison
+        if [[ "$(cat "${base}.ans")" == "$(cat "$out")" ]]; then
+            pass=$((pass + 1)); echo "$CORRECT"
+        else
+            echo "$WRONG"
+            diff "${base}.ans" "$out" | sed 's/^/    /'
+        fi
+    done
+    echo "Passed ${pass}/${total} Cases"
+}
+
+# 6-2: run the generated GC harness (tests gc.ml's malloc_with_gc against the spec).
+check_q2 () {
+    echo "# Exercise 2 (GC: malloc_with_gc)"
+    "$GC"
+}
+
+echo '# Compiling...'
+if ! dune build --profile release 2>/dev/null; then
+    dune build --profile release 2>&1 | tail -20
+    echo 'Compile fail.'
+    exit 1
+fi
+echo ''
+
+if [[ $# -eq 0 ]]; then
+    echo "== Homework 6 =="
+    check_q1
+    check_q2
+elif [[ "$1" == "1" ]]; then
+    check_q1
+elif [[ "$1" == "2" ]]; then
+    check_q2
+else
+    echo "Error: Exercise $1 not found"
+fi

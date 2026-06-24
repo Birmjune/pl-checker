@@ -1,0 +1,42 @@
+(* 4-2 test08: 8. binary search tree *)
+let proc insert (x, tr) =
+  let v := nodeVal (tr) in
+  if isLeaf (tr) then
+    if x < v then makeLtree (v, leaf (x))
+    else makeRtree (v, leaf (x))
+  else if isLtree (tr) then
+    if x < v then makeLtree (v, insert (x, lTree (tr)))
+    else makeTree (v, lTree (tr), leaf (x))
+  else if isRtree (tr) then
+    if x < v then makeTree (v, leaf (x), rTree (tr))
+    else makeRtree (v, insert (x, rTree (tr)))
+  else
+    if x < v then makeTree (v, insert (x, lTree (tr)), rTree (tr))
+    else makeTree (v, lTree (tr), insert (x, rTree (tr)))
+in
+let proc search (x, tr) =
+  let v := nodeVal (tr) in
+  if isLeaf (tr) then
+    x = v
+  else if isLtree (tr) then
+    if x < v then search (x, lTree (tr))
+    else x = v
+  else if isRtree (tr) then
+    if v < x then search (x, rTree (tr))
+    else x = v
+  else
+    if x = v then true
+    else if x < v then search (x, lTree (tr))
+    else search (x, rTree (tr))
+in
+let tr := leaf (10) in
+tr := insert (5, tr);
+tr := insert (15, tr);
+tr := insert (3, tr);
+tr := insert (7, tr);
+tr := insert (12, tr);
+tr := insert (18, tr);
+bft (tr);
+write (if search (7, tr) then 200 else 404);
+write (if search (4, tr) then 200 else 404)
+

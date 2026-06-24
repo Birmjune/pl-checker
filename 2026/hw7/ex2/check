@@ -19,26 +19,17 @@ make
 echo ""
 
 echo "-- Testing Exception is Sugar --"
-for FULLNAME in $(find "$TESTDIR"/*.xexp | sort -V)
+for FULLNAME in $(find "$TESTDIR"/test*.xexp | sort -V)
 do
     TEST="$(basename -- "$FULLNAME" .xexp)"
     FILE="$TESTDIR/$TEST"
 
     printf "${BOLD}Testcase: %s$N " "$TEST"
 
-    COMM="./run $FILE.xexp > $FILE.out 2> $FILE.err"
-    if [ -f "$FILE.in" ]
-    then
-        COMM="$COMM < $FILE.in"
-    fi
-
-    if eval "$COMM"
-    then
+    if ./run -checkval "$FILE.xexp" > /dev/null 2>&1; then
         echo "$CORRECT"
     else
         echo "$WRONG"
-        cat "$FILE.out"
-        cat "$FILE.err"
-        echo ""
+        ./run "$FILE.xexp" 2>&1 | head -10
     fi
 done

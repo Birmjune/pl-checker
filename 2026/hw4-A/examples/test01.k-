@@ -1,0 +1,7 @@
+(* 4-1 test01: 1. LETV, ASSIGN, arithmetic | expect Num 14 *)
+write (
+let x := 5 in
+let y := 0 in
+((x := 6) - 3) * 4 + (y := x * 2) / 5 + y
+
+)

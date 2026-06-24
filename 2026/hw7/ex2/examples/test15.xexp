@@ -1,0 +1,2 @@
+(rec fs f => (ifp  ( ( (fn x => (raise f) ) ) 0 ) then (f 1) else (f 2) ) )
+  (fn x =>ifp x then ( (raise x) handle x ( ( x, (raise x)).1 ) ) else raise x)

@@ -1,24 +1,11 @@
-(* test case 13 : boolean operations *)
+(* 4-1 test13: 13. result of ASSIGN *)
 
-let proc print_bool (b) =
-  if b then write 1
-  else write 0
-in
-let x := true in
-let y := true in
-let z := (x := false) = (x = true) in
-let r := {x := 1} in
-( print_bool (not x);
-  print_bool (not (not y));
-  print_bool (z);
-  print_bool (unit = unit);
-  print_bool (123 = 123);
-  print_bool (false = false);
-  print_bool (true = true);
-  print_bool (false = true);
-  print_bool (true = false);
-  print_bool (123 = (-123));
-  print_bool (unit = 123);
-  print_bool (true = 1);
-  print_bool (r = 1)
-)
+let x := 3 in
+write x * (x := x + 1);
+write (x := x + 1) * x;
+if (x := 0) < x then
+  write x;
+  while (x := x + 1) < 3 do
+    write x
+else false
+

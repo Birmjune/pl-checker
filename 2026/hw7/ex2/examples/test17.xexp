@@ -1,0 +1,11 @@
+(
+    ( rec rsum x =>
+      (rec lsum y =>
+        ifp (x.2) + (y.1)
+        then ( (x.2) + (rsum (x.1 , (x.2) + (-1) ) y )
+          + (ifp (y.1) then ( lsum ((y.1) + (-1) , y.2 ) ) else ( raise (x.2) + (y.1) )  ) )
+        else ( ifp (y.1) + (y.2) then raise (x.1) + (y.2) else 252 )
+      )
+    )
+    ((1) , (-2)) ((4) , (-8))
+  ) handle a a

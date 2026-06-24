@@ -1,0 +1,7 @@
+(library
+ (name libsm5))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

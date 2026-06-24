@@ -1,10 +1,6 @@
-(* test case 18 : LETF arg binding *)
+(* 4-1 test18: 18. shadowing | expect Num 4 *)
 
-let proc f (x,y) =
-  x + y
-in
-write f(3,x)
+let proc f (x) = x + 1 in
+let f := 2 in
+write (f + f)
 
-(* output :
-Error : Unbound
-*)

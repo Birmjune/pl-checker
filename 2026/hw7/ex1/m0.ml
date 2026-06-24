@@ -70,6 +70,18 @@ let rec eval env exp =
 
 let emptyEnv x = raise (RunError ("unbound id: " ^ x))
 let run : nexp -> value = fun exp -> eval emptyEnv exp
+
+(* call/cc support (used by test cases that have a .cc expected-value file) *)
+let callcc_value =
+  let f = "call/cc#f" in
+  let cc = "call/cc#cc" in
+  let x = "call/cc#x" in
+  let call_cc =
+    Fn (cc, App (App (Var f, Fn (x, Fn ("k", App (Var cc, Var x)))), Var cc))
+  in
+  C (Fun (f, call_cc), emptyEnv)
+let cc_env = function "callcc" -> callcc_value | x -> emptyEnv x
+let run_callcc : nexp -> value = fun exp -> eval cc_env exp
 let ps = print_string
 let nl = print_newline
 

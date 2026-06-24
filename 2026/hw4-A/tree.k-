@@ -1,0 +1,65 @@
+let proc leaf(n) =
+  {kind := 0, val := n, left := 0, right := 0}
+in
+let proc makeLtree(n, t) = 
+  {kind := 1, val := n, left := t, right := 0}
+in
+let proc makeRtree(n, t) = 
+  {kind := 2, val := n, left := 0, right := t}
+in
+let proc makeTree(n, tl, tr) = 
+  {kind := 3, val := n, left := tl, right := tr}
+in
+
+let proc isLeaf(t) =
+  (t.kind = 0)
+in
+let proc isLtree(t) = 
+  (t.kind = 1)
+in
+let proc isRtree(t) = 
+  (t.kind = 2)
+in
+let proc isLRtree(t) = 
+  (t.kind = 3)
+in
+
+let proc rTree(t) =
+  t.right
+in
+let proc lTree(t) = 
+  t.left
+in
+let proc nodeVal(t) = 
+  t.val
+in
+
+let proc dft(t) = 
+  write (nodeVal(t));
+  if (isLeaf(t)) then 0
+  else if (isLtree(t)) then dft(lTree(t))
+  else if (isRtree(t)) then dft(rTree(t))
+  else (dft(lTree(t)); dft(rTree(t))) 
+in
+
+let proc bft(t) = 
+  let proc enqueue(q, t) = 
+  if q = 0 then
+    {head := t, tail := 0}
+  else {head := q.head, tail := enqueue(q.tail, t)}
+  in
+
+  let proc bft_with_queue(q) = 
+  if (q = 0) then 0 
+  else 
+    let cur := q.head in 
+    let restq := q.tail in 
+    write (nodeVal(cur)); 
+    if (isLeaf(cur)) then bft_with_queue(restq)
+    else if (isLtree(cur)) then bft_with_queue(enqueue(restq, lTree(cur)))
+    else if (isRtree(cur)) then bft_with_queue(enqueue(restq, rTree(cur)))
+    else bft_with_queue(enqueue(enqueue(restq, lTree(cur)), rTree(cur)))
+  in 
+  bft_with_queue(enqueue(0, t))
+in
+2026
